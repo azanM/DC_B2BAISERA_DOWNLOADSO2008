@@ -1,0 +1,266 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Model" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+  <EntityContainer Name="EProcEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="CUSTOM_DOWNLOAD_TRANSACTION" EntityType="Model.CUSTOM_DOWNLOAD_TRANSACTION" />
+    <EntitySet Name="CUSTOM_DOWNLOAD_TRANSACTIONDATA" EntityType="Model.CUSTOM_DOWNLOAD_TRANSACTIONDATA" />
+    <EntitySet Name="CUSTOM_DOWNLOAD_TRANSACTIONDATADETAIL" EntityType="Model.CUSTOM_DOWNLOAD_TRANSACTIONDATADETAIL" />
+    <AssociationSet Name="FK_CUSTOM_DOWNLOAD_TRANSACTION" Association="Model.FK_CUSTOM_DOWNLOAD_TRANSACTION">
+      <End Role="CUSTOM_DOWNLOAD_TRANSACTION" EntitySet="CUSTOM_DOWNLOAD_TRANSACTION" />
+      <End Role="CUSTOM_DOWNLOAD_TRANSACTIONDATA" EntitySet="CUSTOM_DOWNLOAD_TRANSACTIONDATA" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CUSTOM_DOWNLOAD_TRANSACTIONDATA" Association="Model.FK_CUSTOM_DOWNLOAD_TRANSACTIONDATA">
+      <End Role="CUSTOM_DOWNLOAD_TRANSACTIONDATA" EntitySet="CUSTOM_DOWNLOAD_TRANSACTIONDATA" />
+      <End Role="CUSTOM_DOWNLOAD_TRANSACTIONDATADETAIL" EntitySet="CUSTOM_DOWNLOAD_TRANSACTIONDATADETAIL" />
+    </AssociationSet>
+    <EntitySet Name="CUSTOM_S02008" EntityType="Model.CUSTOM_S02008" />
+    <AssociationSet Name="FK_CUSTOM_DOWNLOAD_TRANSACTIONDATA_S02008" Association="Model.FK_CUSTOM_DOWNLOAD_TRANSACTIONDATA_S02008">
+      <End Role="CUSTOM_DOWNLOAD_TRANSACTIONDATA" EntitySet="CUSTOM_DOWNLOAD_TRANSACTIONDATA" />
+      <End Role="CUSTOM_S02008" EntitySet="CUSTOM_S02008" />
+    </AssociationSet>
+    <FunctionImport Name="sp_UpdateS02008" ReturnType="Collection(Int32)">
+      <Parameter Name="PONUMBER" Mode="In" Type="String" />
+      <Parameter Name="VERSIONPOSERA" Mode="In" Type="Int32" />
+      <Parameter Name="DATAVERSION" Mode="In" Type="Int32" />
+      <Parameter Name="SALESORDERNO" Mode="In" Type="String" />
+      <Parameter Name="NOCHASIS_INPUT" Mode="In" Type="String" />
+      <Parameter Name="TGLMASUKKAROSERI" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <EntitySet Name="CUSTOM_LOG" EntityType="Model.CUSTOM_LOG" />
+    <EntitySet Name="CUSTOM_USER" EntityType="Model.CUSTOM_USER" />
+    <EntitySet Name="CUSTOMGRs" EntityType="Model.CUSTOMGR" />
+    <EntitySet Name="CUSTOMPOes" EntityType="Model.CUSTOMPO" />
+  </EntityContainer>
+  <EntityType Name="CUSTOM_DOWNLOAD_TRANSACTION">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Boolean" Name="Acknowledge" />
+    <Property Type="String" Name="TicketNo" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Message" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="CreatedWho" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="CreatedWhen" />
+    <Property Type="String" Name="ChangedWho" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="ChangedWhen" />
+    <NavigationProperty Name="CUSTOM_DOWNLOAD_TRANSACTIONDATA" Relationship="Model.FK_CUSTOM_DOWNLOAD_TRANSACTION" FromRole="CUSTOM_DOWNLOAD_TRANSACTION" ToRole="CUSTOM_DOWNLOAD_TRANSACTIONDATA" />
+  </EntityType>
+  <EntityType Name="CUSTOM_DOWNLOAD_TRANSACTIONDATA">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Int32" Name="TransactionID" Nullable="false" />
+    <Property Type="String" Name="TransGUID" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="DocumentNumber" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="FileType" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="IPAddress" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="DestinationUser" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Key1" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Key2" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Key3" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="DataLength" />
+    <Property Type="String" Name="CreatedWho" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="CreatedWhen" />
+    <Property Type="String" Name="ChangedWho" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="ChangedWhen" />
+    <NavigationProperty Name="CUSTOM_DOWNLOAD_TRANSACTION" Relationship="Model.FK_CUSTOM_DOWNLOAD_TRANSACTION" FromRole="CUSTOM_DOWNLOAD_TRANSACTIONDATA" ToRole="CUSTOM_DOWNLOAD_TRANSACTION" />
+    <NavigationProperty Name="CUSTOM_DOWNLOAD_TRANSACTIONDATADETAIL" Relationship="Model.FK_CUSTOM_DOWNLOAD_TRANSACTIONDATA" FromRole="CUSTOM_DOWNLOAD_TRANSACTIONDATA" ToRole="CUSTOM_DOWNLOAD_TRANSACTIONDATADETAIL" />
+    <Property Type="Int32" Name="AIID" />
+    <Property Type="String" Name="TransStatus" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="LogMessage" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="CUSTOM_S02008" Relationship="Model.FK_CUSTOM_DOWNLOAD_TRANSACTIONDATA_S02008" FromRole="CUSTOM_DOWNLOAD_TRANSACTIONDATA" ToRole="CUSTOM_S02008" />
+  </EntityType>
+  <EntityType Name="CUSTOM_DOWNLOAD_TRANSACTIONDATADETAIL">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Int32" Name="TransactionDataID" Nullable="false" />
+    <Property Type="String" Name="Data" MaxLength="1000" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="CUSTOM_DOWNLOAD_TRANSACTIONDATA" Relationship="Model.FK_CUSTOM_DOWNLOAD_TRANSACTIONDATA" FromRole="CUSTOM_DOWNLOAD_TRANSACTIONDATADETAIL" ToRole="CUSTOM_DOWNLOAD_TRANSACTIONDATA" />
+  </EntityType>
+  <Association Name="FK_CUSTOM_DOWNLOAD_TRANSACTION">
+    <End Type="Model.CUSTOM_DOWNLOAD_TRANSACTION" Role="CUSTOM_DOWNLOAD_TRANSACTION" Multiplicity="1" />
+    <End Type="Model.CUSTOM_DOWNLOAD_TRANSACTIONDATA" Role="CUSTOM_DOWNLOAD_TRANSACTIONDATA" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CUSTOM_DOWNLOAD_TRANSACTION">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="CUSTOM_DOWNLOAD_TRANSACTIONDATA">
+        <PropertyRef Name="TransactionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CUSTOM_DOWNLOAD_TRANSACTIONDATA">
+    <End Type="Model.CUSTOM_DOWNLOAD_TRANSACTIONDATA" Role="CUSTOM_DOWNLOAD_TRANSACTIONDATA" Multiplicity="1" />
+    <End Type="Model.CUSTOM_DOWNLOAD_TRANSACTIONDATADETAIL" Role="CUSTOM_DOWNLOAD_TRANSACTIONDATADETAIL" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CUSTOM_DOWNLOAD_TRANSACTIONDATA">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="CUSTOM_DOWNLOAD_TRANSACTIONDATADETAIL">
+        <PropertyRef Name="TransactionDataID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="CUSTOM_S02008">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Int32" Name="TransactionDataID" />
+    <Property Type="String" Name="PONumber" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="Decimal" Name="VersionPOSERA" Precision="3" Scale="0" />
+    <Property Type="Decimal" Name="DataVersion" Precision="3" Scale="0" />
+    <Property Type="String" Name="SalesOrderNo" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="ChassisNumberByVendor" MaxLength="18" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="DateEntryCarrosserieAccessories" />
+    <NavigationProperty Name="CUSTOM_DOWNLOAD_TRANSACTIONDATA" Relationship="Model.FK_CUSTOM_DOWNLOAD_TRANSACTIONDATA_S02008" FromRole="CUSTOM_S02008" ToRole="CUSTOM_DOWNLOAD_TRANSACTIONDATA" />
+    <Property Type="String" Name="dibuatOleh" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="dibuatTanggal" />
+    <Property Type="String" Name="diubahOleh" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="diubahTanggal" />
+  </EntityType>
+  <Association Name="FK_CUSTOM_DOWNLOAD_TRANSACTIONDATA_S02008">
+    <End Type="Model.CUSTOM_DOWNLOAD_TRANSACTIONDATA" Role="CUSTOM_DOWNLOAD_TRANSACTIONDATA" Multiplicity="0..1" />
+    <End Type="Model.CUSTOM_S02008" Role="CUSTOM_S02008" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CUSTOM_DOWNLOAD_TRANSACTIONDATA">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="CUSTOM_S02008">
+        <PropertyRef Name="TransactionDataID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="CUSTOM_LOG">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="WebServiceName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="MethodName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="Boolean" Name="Acknowledge" Nullable="false" />
+    <Property Type="String" Name="TicketNo" MaxLength="1000" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Message" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="FileType" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="CreatedWho" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="CreatedWhen" Nullable="false" />
+    <Property Type="String" Name="ChangedWho" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="ChangedWhen" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CUSTOM_USER">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="UserName" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Password" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="UserCode" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="PassCode" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="ClientTag" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="CUSTOMGR">
+    <Key>
+      <PropertyRef Name="PONUMBER" />
+    </Key>
+    <Property Type="String" Name="PONUMBER" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="ACTUALRECEIVEDUNIT" />
+    <Property Type="String" Name="NOCHASIS" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="NOENGINE" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="NOEQUIP" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="NOEQUIPBARU" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="TGLCREATEEQUIP" />
+    <Property Type="DateTime" Name="TGLGRSAP" />
+    <Property Type="String" Name="NAMAPEMILIK" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="VENDORNAMEAP" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="PICRECEIVEDUNIT" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="STATUSDELIVERYUNIT" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="MODIFIED_BY" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="MODIFIED_DATE" />
+    <Property Type="DateTime" Name="ACTUALRECEIVEDUNITINBDEL" />
+    <Property Type="String" Name="NOCHASIS_INPUT" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="NOENGINE_INPUT" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="NAMAPEMILIK_INPUT" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="CUSTOMPO">
+    <Key>
+      <PropertyRef Name="PONUMBER" />
+    </Key>
+    <Property Type="String" Name="PONUMBER" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="HARGAOPTIONAL" />
+    <Property Type="DateTime" Name="TGLKIRIMCABVENDOR" />
+    <Property Type="String" Name="KETPO" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="PPNOPTIONAL" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="CABANGVENDOR" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="DESCCHANGEPO" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="DESCPO" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="Double" Name="DISC" />
+    <Property Type="Double" Name="HARGABBN" />
+    <Property Type="Double" Name="HARGADPP" />
+    <Property Type="Double" Name="HARGAPPNUNIT" />
+    <Property Type="String" Name="MAINTYPEUNIT" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="Double" Name="PRICELIST" />
+    <Property Type="DateTime" Name="PROMISEDLVDATEPO" />
+    <Property Type="DateTime" Name="TGLCHANGEPO" />
+    <Property Type="DateTime" Name="TGLPO" />
+    <Property Type="String" Name="VENDORNAME" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="PRNUMBER" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="Double" Name="BIAYAPENGIRIMAN" />
+    <Property Type="String" Name="CITY" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="BENTUKAKHIRUNIT" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="CBUCKD" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="HISTORYPO" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="PICADMIN" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="STATUSBELI" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="TGLMASUKKAROSERI" />
+    <Property Type="DateTime" Name="TGLSELESAIKAROSERI" />
+    <Property Type="String" Name="PURCHASESTATUS" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="PURCHASESTATUS1" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="VENDORID" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="REASONREJECTIONBYVENDOR" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="POSTATUSID" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="Double" Name="ONTHEROADPRICE" />
+    <Property Type="DateTime" Name="EXPECTEDDATEDELIVERED" />
+    <Property Type="String" Name="COLOR" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="UNITDELIVERYADDRESS" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="ACTUALDATEDELIVEREDUNIT" />
+    <Property Type="String" Name="REMARKSPOVENDOR" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="REMARKSCARROSSERIE" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="ACTUALRECEIVEDBPKBHOFROMBRANCH" />
+    <Property Type="Double" Name="DELIVERYCOST" />
+    <Property Type="String" Name="CARROSERIEVENDORNAME" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="ACCESORIESADDRESS" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="REMARKS" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="DODATE" />
+    <Property Type="String" Name="DONUMBER" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="MODIFIED_BY" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="MODIFIED_DATE" />
+    <Property Type="Double" Name="HARGABBN_INPUT" />
+    <Property Type="Double" Name="HARGADPP_INPUT" />
+    <Property Type="Double" Name="HARGAPPNUNIT_INPUT" />
+    <Property Type="String" Name="CARMODEL" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="CARSERIES" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="COMPANYCODE" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="COMPANYNAME" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="ATMT" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="CABANGTRAC" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="MERK" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="TYPEUNIT" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="VARIAN" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="VARIAN_INPUT" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="MERK_INPUT" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="POQTY" />
+    <Property Type="String" Name="PRSAP" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="REASONREVISEDBYVENDOR" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="REVISEDDATE" />
+    <Property Type="Boolean" Name="isRevised" />
+    <Property Type="DateTime" Name="TGLGI" />
+    <Property Type="String" Name="RefDocNo" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="CODEGROUP" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="Decimal" Name="TOTALPAYMENT" Precision="17" Scale="4" />
+    <Property Type="String" Name="WARNA" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="Decimal" Name="LOCALPRICE" Precision="18" Scale="0" />
+    <Property Type="String" Name="CURRENCY" MaxLength="3" FixedLength="false" Unicode="false" />
+  </EntityType>
+</Schema>
